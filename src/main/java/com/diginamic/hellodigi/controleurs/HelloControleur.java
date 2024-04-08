@@ -1,4 +1,4 @@
-package com.diginamic.controleurs;
+package com.diginamic.hellodigi.controleurs;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
