@@ -16,5 +16,4 @@ public class Ville {
   public int getNbHabitants() {
     return nbHabitants;
   }
-
 }
