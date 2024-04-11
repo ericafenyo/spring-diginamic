@@ -1,5 +1,7 @@
 package com.diginamic.hellodigi.services;
 
+import com.diginamic.hellodigi.dto.CreateCityRequest;
+import com.diginamic.hellodigi.dto.UpdateCityRequest;
 import com.diginamic.hellodigi.entities.CityEntity;
 import com.diginamic.hellodigi.entities.DepartmentEntity;
 import com.diginamic.hellodigi.mapper.CityMapper;
@@ -27,22 +29,25 @@ public class CityService {
     this.mapper = mapper;
   }
 
-  public List<City> addCity(City city) {
-    var departmentEntity = new DepartmentEntity()
-        .setName(city.getDepartment().getName())
-        .setCode(city.getDepartment().getCode());
+  public List<City> addCity(CreateCityRequest city) {
+    var currentCity = cityRepository.findByName(city.getName());
 
+    if (currentCity.isEmpty()){
+      var departmentEntity = new DepartmentEntity()
+          .setName(city.getDepartment().getName())
+          .setCode(city.getDepartment().getCode());
 
-    var currentDepartment = departmentRepository.findByName(city.getDepartment().getName());
+      var currentDepartment = departmentRepository.findByName(city.getDepartment().getName());
 
-    DepartmentEntity department = currentDepartment.orElseGet(() -> departmentRepository.save(departmentEntity));
+      DepartmentEntity department = currentDepartment.orElseGet(() -> departmentRepository.save(departmentEntity));
 
-    var entity = new CityEntity()
-        .setName(city.getName())
-        .setPopulation(city.getPopulation())
-        .setDepartment(department);
+      var entity = new CityEntity()
+          .setName(city.getName())
+          .setPopulation(city.getPopulation())
+          .setDepartment(department);
 
-    cityRepository.save(entity);
+      cityRepository.save(entity);
+    }
 
     return getCities();
   }
@@ -62,7 +67,7 @@ public class CityService {
     return cityRepository.findByName(name).map(mapper);
   }
 
-  public List<City> updateCity(City city) {
+  public List<City> updateCity(UpdateCityRequest city) {
     var entity = cityRepository.findById(city.getId());
 
     if (entity.isPresent()) {

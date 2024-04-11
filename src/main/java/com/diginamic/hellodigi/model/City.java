@@ -1,5 +1,7 @@
 package com.diginamic.hellodigi.model;
 
+import org.springframework.lang.NonNull;
+
 /**
  * Represents a city of a country.
  */
