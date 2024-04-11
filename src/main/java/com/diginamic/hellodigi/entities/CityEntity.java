@@ -31,7 +31,7 @@ public class CityEntity {
   /**
    * The name of the city.
    */
-  @Column(name = "name", unique = true, length = 50)
+  @Column(name = "name", length = 50)
   private String name;
 
   /**

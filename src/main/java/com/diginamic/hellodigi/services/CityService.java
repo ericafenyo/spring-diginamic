@@ -4,11 +4,13 @@ import com.diginamic.hellodigi.dto.CreateCityRequest;
 import com.diginamic.hellodigi.dto.UpdateCityRequest;
 import com.diginamic.hellodigi.entities.CityEntity;
 import com.diginamic.hellodigi.entities.DepartmentEntity;
+import com.diginamic.hellodigi.exceptions.HttpException;
 import com.diginamic.hellodigi.mapper.CityMapper;
-import com.diginamic.hellodigi.model.City;
+import com.diginamic.hellodigi.businessmodel.City;
 import com.diginamic.hellodigi.repositories.CityRepository;
 import com.diginamic.hellodigi.repositories.DepartmentRepository;
 import org.springframework.data.domain.Limit;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,25 +31,61 @@ public class CityService {
     this.mapper = mapper;
   }
 
-  public List<City> addCity(CreateCityRequest city) {
-    var currentCity = cityRepository.findByName(city.getName());
+  public List<City> addCity(CreateCityRequest request) throws HttpException {
 
-    if (currentCity.isEmpty()){
-      var departmentEntity = new DepartmentEntity()
-          .setName(city.getDepartment().getName())
-          .setCode(city.getDepartment().getCode());
-
-      var currentDepartment = departmentRepository.findByName(city.getDepartment().getName());
-
-      DepartmentEntity department = currentDepartment.orElseGet(() -> departmentRepository.save(departmentEntity));
-
-      var entity = new CityEntity()
-          .setName(city.getName())
-          .setPopulation(city.getPopulation())
-          .setDepartment(department);
-
-      cityRepository.save(entity);
+    // Throw an error when the city population is less than 10 inhabitants
+    if (request.getPopulation() < 10) {
+      throw new HttpException(HttpStatus.BAD_REQUEST, "City population should be at least 10");
     }
+
+    // Throw an error when the city name is less than 2 characters
+    if (request.getName().length() < 2) {
+      throw new HttpException(HttpStatus.BAD_REQUEST, "City name should be at least 2 characters");
+    }
+
+    // Throw an error when the department code is not between 2 and 3 characters both inclusive.
+    if (request.getDepartment().getCode().length() < 2 || request.getDepartment().getCode().length() > 3) {
+      throw new HttpException(
+          HttpStatus.BAD_REQUEST,
+          "Department code should be at least 2 and at most 3 characters"
+      );
+    }
+
+    // Throw an error when the department name is not at least 3 chars.
+    if (request.getDepartment().getName().length() < 3) {
+      throw new HttpException(
+          HttpStatus.BAD_REQUEST,
+          "Department name should be least 3 characters"
+      );
+    }
+
+    var city = cityRepository.findByName(request.getName());
+
+    // Throw an error if city name with the associated department code exists in the database.
+    if (city.isPresent()) {
+      if (
+          city.get().getName().equals(request.getName()) &&
+              city.get().getDepartment().getCode().equals(request.getDepartment().getCode())) {
+        throw new HttpException(HttpStatus.CONFLICT, "The city name with the provided department code already exist");
+      }
+    }
+
+    var currentDepartment = departmentRepository.findByName(request.getDepartment().getName());
+
+    DepartmentEntity department = currentDepartment.orElseGet(() -> {
+      var departmentEntity = new DepartmentEntity()
+          .setName(request.getDepartment().getName())
+          .setCode(request.getDepartment().getCode());
+
+      return departmentRepository.save(departmentEntity);
+    });
+
+    var entity = new CityEntity()
+        .setName(request.getName())
+        .setPopulation(request.getPopulation())
+        .setDepartment(department);
+
+    cityRepository.save(entity);
 
     return getCities();
   }
@@ -67,13 +105,31 @@ public class CityService {
     return cityRepository.findByName(name).map(mapper);
   }
 
-  public List<City> updateCity(UpdateCityRequest city) {
-    var entity = cityRepository.findById(city.getId());
+  public List<City> updateCity(UpdateCityRequest request) throws HttpException {
+
+    // Throw an error when the department code is not between 2 and 3 characters both inclusive.
+    if (request.getDepartment().getCode().length() < 2 || request.getDepartment().getCode().length() > 3) {
+      throw new HttpException(
+          HttpStatus.BAD_REQUEST,
+          "Department code should be at least 2 and at most 3 characters"
+      );
+    }
+
+    // Throw an error when the department name is not at least 3 chars.
+    if (request.getDepartment().getName().length() < 3) {
+      throw new HttpException(
+          HttpStatus.BAD_REQUEST,
+          "Department name should be least 3 characters"
+      );
+    }
+
+
+    var entity = cityRepository.findById(request.getId());
 
     if (entity.isPresent()) {
       var updatedEntity = entity.get()
-          .setName(city.getName())
-          .setPopulation(city.getPopulation());
+          .setName(request.getName())
+          .setPopulation(request.getPopulation());
 
       cityRepository.save(updatedEntity);
     }

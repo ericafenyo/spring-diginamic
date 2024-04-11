@@ -11,6 +11,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,7 +45,7 @@ public class DepartmentEntity {
    * The list of cities in the department.
    */
   @OneToMany(mappedBy = "department")
-  private List<CityEntity> cities;
+  private List<CityEntity> cities = new ArrayList<>();
 
   /**
    * The date and time when the city was created.

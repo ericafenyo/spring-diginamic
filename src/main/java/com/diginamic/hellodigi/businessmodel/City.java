@@ -1,6 +1,6 @@
-package com.diginamic.hellodigi.model;
+package com.diginamic.hellodigi.businessmodel;
 
-import org.springframework.lang.NonNull;
+import java.time.LocalDateTime;
 
 /**
  * Represents a city of a country.
@@ -22,6 +22,16 @@ public class City {
    * The department of a city.
    */
   private Department department;
+
+  /**
+   * The date and time when the city was created.
+   */
+  private LocalDateTime createdAt;
+
+  /**
+   * The date and time when the city was last updated.
+   */
+  private LocalDateTime updatedAt;
 
   // No args constructor. Do not delete
   public City() {}
@@ -73,5 +83,23 @@ public class City {
 
   public Department getDepartment() {
     return department;
+  }
+
+  public LocalDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public City setCreatedAt(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+  public LocalDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public City setUpdatedAt(LocalDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
   }
 }

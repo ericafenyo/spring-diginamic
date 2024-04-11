@@ -1,7 +1,4 @@
-package com.diginamic.hellodigi.model;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.diginamic.hellodigi.businessmodel;
 
 /**
  * Represents a department of a country.
@@ -16,7 +13,7 @@ public class Department {
   private String code;
 
   /** The name of the department. */
-  private String population;
+  private long population;
 
   public Department() {}
 
@@ -47,11 +44,11 @@ public class Department {
     return this;
   }
 
-  public String getPopulation() {
+  public long getPopulation() {
     return population;
   }
 
-  public Department setPopulation(String population) {
+  public Department setPopulation(long population) {
     this.population = population;
     return this;
   }
