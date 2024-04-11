@@ -34,4 +34,40 @@ public class CityController {
   public List<City> findByNameStartingWith(@PathVariable String city) {
     return service.findByNameStartingWith(city);
   }
+
+  @GetMapping("cities/findByPopulationBetween/{min}/{max}")
+  public List<City> findByPopulationBetween(@PathVariable int min, @PathVariable int max) {
+    return service.findByPopulationBetween(min, max);
+  }
+
+
+  @GetMapping("cities/findByDepartmentCodeAndPopulationGreaterThan/{code}/{population}")
+  public List<City> findByDepartmentCodeAndPopulationGreaterThan(
+      @PathVariable String code,
+      @PathVariable int population
+  ) {
+    return service.findByDepartmentCodeAndPopulationGreaterThan(code, population);
+  }
+
+  @GetMapping("cities/findByDepartmentCodeAndPopulationBetween/{code}/{min}/{max}")
+  public List<City> findByDepartmentCodeAndPopulationBetween(
+      @PathVariable String code,
+      @PathVariable int min,
+      @PathVariable int max
+  ) {
+    return service.findByDepartmentCodeAndPopulationBetween(code, min, max);
+  }
+
+  @GetMapping("cities/findByPopulationGreaterThan/{value}")
+  public List<City> findByPopulationGreaterThan(@PathVariable int value) {
+    return service.findByPopulationGreaterThan(value);
+  }
+
+  @GetMapping("cities/findByDepartmentCodeOrderByPopulationDesc/{code}/{limit}")
+  public List<City> findByDepartmentCodeOrderByPopulationDesc(
+      @PathVariable String code,
+      @PathVariable int limit
+  ) {
+    return service.findByDepartmentCodeOrderByPopulationDesc(code, limit);
+  }
 }

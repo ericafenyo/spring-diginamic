@@ -32,12 +32,15 @@ public class CityService {
         .setName(city.getDepartment().getName())
         .setCode(city.getDepartment().getCode());
 
-    DepartmentEntity savedDepartment = departmentRepository.save(departmentEntity);
+
+    var currentDepartment = departmentRepository.findByName(city.getDepartment().getName());
+
+    DepartmentEntity department = currentDepartment.orElseGet(() -> departmentRepository.save(departmentEntity));
 
     var entity = new CityEntity()
         .setName(city.getName())
         .setPopulation(city.getPopulation())
-        .setDepartment(savedDepartment);
+        .setDepartment(department);
 
     cityRepository.save(entity);
 
@@ -90,27 +93,27 @@ public class CityService {
   }
 
 
-  List<City> findByPopulationGreaterThan(int factor) {
+  public List<City> findByPopulationGreaterThan(int factor) {
     Iterable<CityEntity> entities = cityRepository.findByPopulationGreaterThan(factor);
     return entityListToBusinessModel(entities);
   }
 
-  List<City> findByPopulationBetween(int min, int max) {
+  public List<City> findByPopulationBetween(int min, int max) {
     Iterable<CityEntity> entities = cityRepository.findByPopulationBetween(min, max);
     return entityListToBusinessModel(entities);
   }
 
-  List<City> findByDepartmentCodeAndPopulationGreaterThan(String code, int factor) {
+  public List<City> findByDepartmentCodeAndPopulationGreaterThan(String code, int factor) {
     Iterable<CityEntity> entities = cityRepository.findByDepartmentCodeAndPopulationGreaterThan(code, factor);
     return entityListToBusinessModel(entities);
   }
 
-  List<City> findByDepartmentCodeAndPopulationBetween(String code, int min, int max) {
+  public List<City> findByDepartmentCodeAndPopulationBetween(String code, int min, int max) {
     Iterable<CityEntity> entities = cityRepository.findByDepartmentCodeAndPopulationBetween(code, min, max);
     return entityListToBusinessModel(entities);
   }
 
-  List<City> findByDepartmentCodeOrderByDesc(String code, int max) {
+  public List<City> findByDepartmentCodeOrderByPopulationDesc(String code, int max) {
     Iterable<CityEntity> entities = cityRepository.findByDepartmentCodeOrderByPopulationDesc(code, Limit.of(max));
     return entityListToBusinessModel(entities);
   }
