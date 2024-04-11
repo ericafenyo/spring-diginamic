@@ -105,13 +105,13 @@ public class CityService {
     return entityListToBusinessModel(entities);
   }
 
-  List<City> findByDepartmentCodeAndPopulationBetween(String code, int max) {
-    Iterable<CityEntity> entities = cityRepository.findByDepartmentCodeAndPopulationBetween(code, max);
+  List<City> findByDepartmentCodeAndPopulationBetween(String code, int min, int max) {
+    Iterable<CityEntity> entities = cityRepository.findByDepartmentCodeAndPopulationBetween(code, min, max);
     return entityListToBusinessModel(entities);
   }
 
   List<City> findByDepartmentCodeOrderByDesc(String code, int max) {
-    Iterable<CityEntity> entities = cityRepository.findByDepartmentCodeOrderByDesc(code, Limit.of(max));
+    Iterable<CityEntity> entities = cityRepository.findByDepartmentCodeOrderByPopulationDesc(code, Limit.of(max));
     return entityListToBusinessModel(entities);
   }
 

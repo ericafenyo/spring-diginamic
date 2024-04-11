@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "name": "Paris",
+    "population": 2140526,
+    "department": {
+      "id": 75,
+      "name": "Paris",
+      "code": "75"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Marseille",
+    "population": 861635,
+    "department": {
+      "id": 13,
+      "name": "Bouches-du-Rhône",
+      "code": "13"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Lyon",
+    "population": 506615,
+    "department": {
+      "id": 69,
+      "name": "Rhône",
+      "code": "69"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Toulouse",
+    "population": 466297,
+    "department": {
+      "id": 31,
+      "name": "Haute-Garonne",
+      "code": "31"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Nice",
+    "population": 342439,
+    "department": {
+      "id": 6,
+      "name": "Alpes-Maritimes",
+      "code": "06"
+    }
+  },
+  {
+    "id": 6,
+    "name": "Nantes",
+    "population": 303382,
+    "department": {
+      "id": 44,
+      "name": "Loire-Atlantique",
+      "code": "44"
+    }
+  },
+  {
+    "id": 7,
+    "name": "Strasbourg",
+    "population": 280966,
+    "department": {
+      "id": 67,
+      "name": "Bas-Rhin",
+      "code": "67"
+    }
+  },
+  {
+    "id": 8,
+    "name": "Montpellier",
+    "population": 281613,
+    "department": {
+      "id": 34,
+      "name": "Hérault",
+      "code": "34"
+    }
+  },
+  {
+    "id": 9,
+    "name": "Bordeaux",
+    "population": 254436,
+    "department": {
+      "id": 33,
+      "name": "Gironde",
+      "code": "33"
+    }
+  },
+  {
+    "id": 10,
+    "name": "Lille",
+    "population": 232787,
+    "department": {
+      "id": 59,
+      "name": "Nord",
+      "code": "59"
+    }
+  }
+]
