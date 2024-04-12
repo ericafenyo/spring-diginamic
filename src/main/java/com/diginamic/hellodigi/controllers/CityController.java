@@ -5,15 +5,17 @@ import com.diginamic.hellodigi.dto.UpdateCityRequest;
 import com.diginamic.hellodigi.exceptions.HttpException;
 import com.diginamic.hellodigi.businessmodel.City;
 import com.diginamic.hellodigi.services.CityService;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfWriter;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +38,56 @@ public class CityController {
       service.addCity(city);
     }
     return getCities();
+  }
+
+  @GetMapping("/cities/{name}/files")
+  public void getFiles(
+      @PathVariable @Valid @NotBlank String name,
+      @RequestParam String format,
+      HttpServletResponse response
+  ) throws HttpException, IOException, DocumentException {
+
+    Optional<City> city = service.getCityByName(name);
+    String safeFormat = (format == null || format.isBlank()) ? "pdf" : format;
+
+    if (city.isEmpty()) {
+      throw new HttpException(HttpStatus.NOT_FOUND, "Resource not found for the given city name: " + name);
+    }
+
+    String cityName = city.get().getName();
+    long cityPopulation = city.get().getPopulation();
+    String departmentName = city.get().getDepartment().getName();
+    String departmentCode = city.get().getDepartment().getCode();
+
+
+    if (safeFormat.equals("pdf")) {
+      response.setHeader("Content-Disposition", "attachment; filename=\"city.pdf\"");
+
+      Document document = new Document(PageSize.A4);
+      PdfWriter.getInstance(document, response.getOutputStream());
+
+      document.open();
+      document.addTitle("Fiche");
+      document.newPage();
+      BaseFont baseFont = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.WINANSI, BaseFont.EMBEDDED);
+      document.add(new Phrase("Name: %s\n".formatted(cityName), new Font(baseFont, 32.0f, 1, new BaseColor(0, 51, 80))));
+      document.add(new Phrase("Population:  %d\n".formatted(cityPopulation), new Font(baseFont, 32.0f, 1, new BaseColor(0, 51, 80))));
+      document.add(new Phrase("Department name:  %s\n".formatted(departmentName), new Font(baseFont, 32.0f, 1, new BaseColor(0, 51, 80))));
+      document.add(new Phrase("Department code:  %s\n".formatted(departmentCode), new Font(baseFont, 32.0f, 1, new BaseColor(0, 51, 80))));
+      document.close();
+
+      response.flushBuffer();
+
+    } else {
+      response.setContentType("text/csv");
+      response.setHeader("Content-Disposition", "attachment; filename=\"city.csv\"");
+      PrintWriter writer = response.getWriter();
+      writer.println("Name;Population;Department name;Department code");
+      writer.println("%s;%d;%s;%s".formatted(cityName, cityPopulation, departmentName, departmentCode));
+
+      writer.flush();
+      writer.close();
+    }
   }
 
   @GetMapping("/cities")
