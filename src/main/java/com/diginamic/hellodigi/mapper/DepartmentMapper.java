@@ -13,15 +13,16 @@ public class DepartmentMapper implements Function<DepartmentEntity, Department> 
   @Override
   public Department apply(DepartmentEntity entity) {
 
-    long sum = entity.getCities()
-        .stream()
-        .mapToLong(CityEntity::getPopulation)
-        .sum();
+    // TODO: Lift off this code
+//    long sum = entity.getCities()
+//        .stream()
+//        .mapToLong(CityEntity::getPopulation)
+//        .sum();
 
     return new Department()
         .setId(entity.getId())
         .setName(entity.getName())
         .setCode(entity.getCode())
-        .setPopulation(sum);
+        .setPopulation(0);
   }
 }

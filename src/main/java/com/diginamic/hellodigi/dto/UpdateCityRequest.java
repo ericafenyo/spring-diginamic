@@ -1,5 +1,7 @@
 package com.diginamic.hellodigi.dto;
 
+import com.diginamic.hellodigi.businessmodel.City;
+import com.diginamic.hellodigi.entities.CityEntity;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -63,5 +65,17 @@ public class UpdateCityRequest {
   public UpdateCityRequest setDepartment(DepartmentRequest department) {
     this.department = department;
     return this;
+  }
+
+  public static UpdateCityRequest from(City entity) {
+    return new UpdateCityRequest()
+        .setId(entity.getId())
+        .setName(entity.getName())
+        .setPopulation(entity.getPopulation())
+        .setDepartment(
+            new DepartmentRequest()
+                .setName(entity.getDepartment().getName())
+                .setCode(entity.getDepartment().getCode())
+        );
   }
 }
