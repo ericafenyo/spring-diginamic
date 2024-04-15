@@ -1,0 +1,192 @@
+[
+  {
+    "id": 1,
+    "name": "Paris",
+    "population": 2140526,
+    "department": {
+      "id": 1,
+      "name": "Paris",
+      "code": "75"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Saint-Denis",
+    "population": 112091,
+    "department": {
+      "id": 1,
+      "name": "Paris",
+      "code": "75"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Boulogne-Billancourt",
+    "population": 121335,
+    "department": {
+      "id": 1,
+      "name": "Paris",
+      "code": "75"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Montreuil",
+    "population": 109914,
+    "department": {
+      "id": 1,
+      "name": "Paris",
+      "code": "75"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Argenteuil",
+    "population": 111499,
+    "department": {
+      "id": 1,
+      "name": "Paris",
+      "code": "75"
+    }
+  },
+  {
+    "id": 6,
+    "name": "Cergy",
+    "population": 97088,
+    "department": {
+      "id": 1,
+      "name": "Paris",
+      "code": "75"
+    }
+  },
+  {
+    "id": 7,
+    "name": "Pontoise",
+    "population": 30851,
+    "department": {
+      "id": 1,
+      "name": "Paris",
+      "code": "75"
+    }
+  },
+  {
+    "id": 8,
+    "name": "Avignon",
+    "population": 91568,
+    "department": {
+      "id": 2,
+      "name": "Vaucluse",
+      "code": "84"
+    }
+  },
+  {
+    "id": 9,
+    "name": "Carpentras",
+    "population": 28110,
+    "department": {
+      "id": 2,
+      "name": "Vaucluse",
+      "code": "84"
+    }
+  },
+  {
+    "id": 10,
+    "name": "Orange",
+    "population": 28286,
+    "department": {
+      "id": 2,
+      "name": "Vaucluse",
+      "code": "84"
+    }
+  },
+  {
+    "id": 11,
+    "name": "Marseille",
+    "population": 861635,
+    "department": {
+      "id": 3,
+      "name": "Bouches-du-Rhône",
+      "code": "13"
+    }
+  },
+  {
+    "id": 12,
+    "name": "Aix-en-Provence",
+    "population": 143641,
+    "department": {
+      "id": 3,
+      "name": "Bouches-du-Rhône",
+      "code": "13"
+    }
+  },
+  {
+    "id": 13,
+    "name": "Martigues",
+    "population": 47824,
+    "department": {
+      "id": 3,
+      "name": "Bouches-du-Rhône",
+      "code": "13"
+    }
+  },
+  {
+    "id": 14,
+    "name": "Arles",
+    "population": 52171,
+    "department": {
+      "id": 3,
+      "name": "Bouches-du-Rhône",
+      "code": "13"
+    }
+  },
+  {
+    "id": 15,
+    "name": "Istres",
+    "population": 43220,
+    "department": {
+      "id": 3,
+      "name": "Bouches-du-Rhône",
+      "code": "13"
+    }
+  },
+  {
+    "id": 16,
+    "name": "Nantes",
+    "population": 309346,
+    "department": {
+      "id": 4,
+      "name": "Loire-Atlantique",
+      "code": "44"
+    }
+  },
+  {
+    "id": 17,
+    "name": "Saint-Nazaire",
+    "population": 69952,
+    "department": {
+      "id": 4,
+      "name": "Loire-Atlantique",
+      "code": "44"
+    }
+  },
+  {
+    "id": 18,
+    "name": "Saint-Herblain",
+    "population": 46936,
+    "department": {
+      "id": 4,
+      "name": "Loire-Atlantique",
+      "code": "44"
+    }
+  },
+  {
+    "id": 19,
+    "name": "Rezé",
+    "population": 44870,
+    "department": {
+      "id": 4,
+      "name": "Loire-Atlantique",
+      "code": "44"
+    }
+  }
+]
