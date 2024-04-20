@@ -11,6 +11,7 @@ import com.diginamic.hellodigi.repositories.CityRepository;
 import com.diginamic.hellodigi.repositories.DepartmentRepository;
 import org.springframework.data.domain.Limit;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

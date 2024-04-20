@@ -12,5 +12,4 @@ public class HellodigiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HellodigiApplication.class, args);
 	}
-
 }

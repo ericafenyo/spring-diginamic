@@ -1,0 +1,14 @@
+<h3 xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <ul>
+        <li th:text="|Username: ${authentication.name}|"></li>
+        <li th:text="|Authorities: ${authentication.authorities}|"></li>
+        <div>
+            <a href="/cities/view">View Auth Cities</a>
+        </div>
+
+        <div>
+            <a href="/login?logout">Logout</a>
+        </div>
+
+    </ul>
+</h3>

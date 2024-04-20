@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thyme leaf demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="mx-auto" style="width:600px">
+        <div style="margin:34px">
+            <table class="table table-striped table-hover table-bordered " xmlns:th="http://www.w3.org/1999/xhtml">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>City</th>
+                    <th>Department code</th>
+                    <div sec:authorize="hasRole('ROLE_ADMIN')">  <th>Action</th></div>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="city : ${cities}">
+                    <td th:text="${city.id}"></td>
+                    <td th:text="${city.name}"></td>
+                    <td th:text="${city.department.code}"></td>
+
+                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                        <td>
+                            <form th:action="@{|/cities/delete/${city.id}|}" method="post">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </div>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

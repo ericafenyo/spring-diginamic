@@ -5,13 +5,19 @@ import com.diginamic.hellodigi.dto.UpdateCityRequest;
 import com.diginamic.hellodigi.exceptions.HttpException;
 import com.diginamic.hellodigi.businessmodel.City;
 import com.diginamic.hellodigi.services.CityService;
-import com.itextpdf.text.*;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -95,6 +101,11 @@ public class CityController {
     return service.getCities();
   }
 
+  @GetMapping("admin/cities")
+  public List<City> getAdminCities() {
+    return service.getCities();
+  }
+
   @GetMapping("/cities/{id}")
   public City getCityById(@PathVariable int id) {
     return service.getCityById(id).orElse(null);
@@ -116,6 +127,7 @@ public class CityController {
     return service.updateCity(city);
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @DeleteMapping("/cities/{id}")
   public List<City> deleteCity(@PathVariable int id) {
     return service.deleteCity(id);
@@ -132,6 +144,12 @@ public class CityController {
     }
 
     return cities;
+  }
+
+  @PreAuthorize("hasRole('ADMIN')")
+  @PostMapping("/cities/delete/{id}")
+  void adminDelete(@PathVariable int id) {
+    service.deleteCity(id);
   }
 
   @GetMapping("cities/findByPopulationGreaterThan/{value}")
